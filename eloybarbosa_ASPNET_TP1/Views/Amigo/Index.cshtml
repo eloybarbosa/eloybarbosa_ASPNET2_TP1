@@ -4,14 +4,50 @@
     ViewData["Title"] = "Index";
 }
 
+@section Scripts{ 
+    <script>
+
+        var ids = [];
+
+        $(document).ready(function () {
+            $("input[type='checkbox']").bind("click", function () {
+
+                if ($(this).is(":checked") {
+                    ids.push($(this).attr("id"))
+                    console.log(ids);
+                } else {
+                    var id = $(this).attr("id");
+
+                    ids = ids.filter(function (elem) {
+                        return emem != id /
+
+                    });
+
+                }
+            }
+                
+            });
+
+        $("lnkNavAmigos.click").click(funtion() {
+
+            location.href = ""
+        })
+
+        });
+    </script>
+
+}
+
 <h1>Amigos Cadastrados</h1>
 
 <p>
     <a asp-action="CadastrarAmigos">Cadastrar Novo</a>
+    < href="#" id="lnkNavAmigos">Mudar visualização</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
@@ -34,6 +70,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                <input type="checkbox" id="@item.Id" />
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
@@ -43,7 +82,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
+                @Html.DisplayFor(modelItem => item.DataNascimento.Date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
