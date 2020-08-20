@@ -23,9 +23,28 @@ namespace eloybarbosa_ASPNET_TP1.Controllers
 
 
         // GET: AmigoController
-        public ActionResult Index()
+        public ActionResult Index(string ids = "")
         {
+            if (!String.IsNullOrWhiteSpace(ids))
+            {
+                ViewBag.IdsSelecionados = ids.Split(",");
+            }
             return View(this.Repository.GetAll());
+        }
+
+        public ActionResult AmigosSelecionados(string ids)
+        {
+            List<Amigo> amigosSelecionados = new List<Amigo>();
+
+            if (!String.IsNullOrWhiteSpace(ids))
+            {
+                foreach (var item in ids.Split(","))
+                {
+                    amigosSelecionados.Add(this.Repository.GetAmigoById(new Guid(item)));
+                }
+            }
+
+            return View(amigosSelecionados);
         }
 
         // GET: AmigoController/Details/5
@@ -62,7 +81,7 @@ namespace eloybarbosa_ASPNET_TP1.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch 
             {
                 return View();
             }
